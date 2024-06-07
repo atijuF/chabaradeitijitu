@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_061118) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
-    t.text "comment"
+    t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2024_06_07_061118) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "tag_id", null: false
-    t.string "title"
-    t.text "body"
+    t.string "title", null: false
+    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tag_id"], name: "index_posts_on_tag_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_061118) do
 
   create_table "tags", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.string "tag"
+    t.string "tag", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_tags_on_post_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_061118) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "name"
+    t.string "name", null: false
     t.boolean "is_active"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
