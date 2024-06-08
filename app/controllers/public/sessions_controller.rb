@@ -1,19 +1,40 @@
+# frozen_string_literal: true
+
 class Public::SessionsController < Devise::SessionsController
-  def new
-    super
-  end
+  # before_action :configure_sign_in_params, only: [:create]
 
-  def create
-    super
-  end
+  # GET /resource/sign_in
+  # def new
+  #   super
+  # end
 
-  def destroy
-    super
-  end
+  # POST /resource/sign_in
+  # def create
+  #   super
+  # end
 
-  protected
+  # DELETE /resource/sign_out
+  # def destroy
+  #   super
+  # end
 
-  def after_sign_out_path_for(resource_or_scope)
-    root_path
+  # protected
+
+  # If you have extra params to permit, append them to the sanitizer.
+  # def configure_sign_in_params
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+  # end
+  
+  private
+  # アクティブであるかを判断するメソッド
+  def user_state
+    # 入力されたemailからアカウントを1件取得
+    user = user.find_by(email: params[:user][:email])
+    # アカウントを取得できなかった場合、このメソッドを終了する
+    return if user.nil?
+    # 取得したアカウントのパスワードと入力されたパスワードが一致していない場合、このメソッドを終了する
+    return unless user.valid_password?(params[:user][:password])
+  
+    # アクティブでない会員に対する処理
   end
 end
