@@ -1,2 +1,37 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<!-- 下記のユーザー情報はサイドバーに記載するので、一旦このページは保留 -->
+<!-- また、このページには投稿一覧、いいね一覧、フォローフォロワー一覧を表示する必要性がある -->
+<div class="container">
+  <div class="row">
+    <h2 class="px-4 my-4", style="background-color: #FFDBC9;">会員情報編集</h2>
+  </div>
+    <%= form_with model: @user, url: user_path(@user), method: :patch do |f| %>
+      
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :氏名 %>
+        </div>
+        <div class="col-3">
+          <%= f.text_field :name, autofocus: true, placeholder: " ", autocomplete: "name" %>
+        </div>
+      </div>
+
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :メールアドレス %>
+        </div>
+        <div class="col-3">
+          <%= f.email_field :email, autofocus: true, placeholder: "sample@example.com", autocomplete: "email", size: "40" %>
+        </div>
+      </div>
+      
+      <div class="row mt-3 pb-5">
+        <div class="col"></div>
+        <%= f.submit "変更内容を保存", class: "btn btn-success mr-5" %>
+        <%= link_to "退会する", user_path(@user), method: :delete, data: { confirm: "本当に退会しますか？" }, class:"btn btn-danger ml-5" %>
+        <div class="col"></div>
+    　</div>
+    
+    <% end %>
+</div>

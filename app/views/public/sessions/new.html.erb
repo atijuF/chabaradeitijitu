@@ -1,2 +1,56 @@
-<h1>Public::Sessions#new</h1>
-<p>Find me in app/views/public/sessions/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h2 class="px-4 my-5", style="background-color: #FFDBC9;">ログイン</h2>
+  </div>
+    
+  <div class="row">
+    <h3 class="px-4 ml-5", style="background-color: #FFDBC9;">会員の方はこちらからログイン</h3>
+  </div>
+  
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <!-- < %= render "public/shared/error_messages", resource: resource %> -->
+  <%= alert %>
+  
+    <div class="row mt-4 col-form-label-lg">
+      <div class="col-1"></div>
+      <div class="px-0 col-3">
+        <%= f.label :メールアドレス %>
+      </div>
+      <div>
+        <%= f.email_field :email, autofocus: true, placeholder: "sample@example.com", autocomplete: "email", size: "40"  %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="px-0 col-3 col-form-label-lg">
+        <%= f.label :パスワード %>
+      </div>
+      <div class="col-form-label-lg">
+        <%= f.password_field :password, autocomplete: "current-password", size: "40"  %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="my-4">
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
+    
+    <div class="row mt-3">
+    <h3 class="px-4 ml-5", style="background-color: #FFDBC9;">会員登録がお済でない方</h3>
+    </div>
+    
+    <div class="row mt-3 pb-5">
+      <div class="col-1"></div>
+        <h5>
+          <%= link_to "/users/sign_up" do %>
+            こちら
+          <% end %>
+            から新規登録を行ってください。
+        </h5>
+      </div>
+    </div>
+</div>

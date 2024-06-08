@@ -1,40 +1,53 @@
+<h2>Sign up</h2>
 
-<div class>
-  <h2>Sign up</h2>
-      
-  <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user' do |f| %>
-    <%= render "devise/shared/error_messages", resource: @user %>
-      
-    <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name, autofocus: true %>
-    </div>
-      
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autocomplete: "email" %>
-    </div>
-      
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
-    </div>
-      
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
-      
-    <div class="actions">
-      <%= f.submit "Sign up" %>
-    </div>
-  <% end %>
-      
-  <!-- <　%= render "devise/shared/links" %> -->
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
-    </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"パスワード(6文字以上)" %>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %>文字以上)</em>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="row col-form-label-lg">
+    <div class="col-1"></div>
+      <div class="col-3 mr-5">
+        <%= f.label :"パスワード(確認用)" %>
+      </div>
+      <div class="col-0 ml-3">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+  </div>
+        
+  <div class="row my-3">
+    <div class="col-4 ml-5"></div>
+      <%= f.submit "新規登録", class: "btn btn-success" %>
+    </div>
+<% end %>
+
+<div class="row">
+  <h3 class="my-4 px-4" style="background-color: #FFDBC9;">既に登録済みの方</h3>
+</div>
+<div class="row pb-5">
+  <div class="col-1"></div>
+  <h5>
+    <%= link_to "/users/sign_in" do %>
+      こちら
+    <% end %>
+    からログインしてください。
+  </h5>
 </div>

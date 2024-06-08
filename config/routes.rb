@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]
     resources :favorites, only: [:index, :create, :destroy]
     resources :tags, only: [:index, :show]
-    resources :relationships, only: [:index, :create, :destroy]
+    #resources :relationships, only: [:index, :create, :destroy] 不要だと思われる
   end
   
     scope module: :admin do
