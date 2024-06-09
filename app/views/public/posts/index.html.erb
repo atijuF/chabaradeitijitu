@@ -1,2 +1,11 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- < %= render 'users/sidebar', user: @user %> -->
+      <%= render 'public/posts/sidebar', post: @post %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <%= render 'public/posts/list', posts: @posts %>
+    </div>
+  </div>
+</div>

@@ -2,12 +2,14 @@
   <div class="row">
     <h2 class="px-4 my-4", style="background-color: #FFDBC9;">ユーザーページ</h2>
   </div>
-
+  
+  
   <div class="row my-3">
     <h3 class="font-weight-bold col-6">登録情報
       <%= link_to "編集する", edit_user_path(@user), class: "btn btn-success ml-5 col-3" %>
     </h3>
   </div>
+  <%= image_tag @user.get_profile_image(100,100) %>
   <div class="row col-7">
     <table class="table table-bordered" style="font-size: 20px">
       <tbody>
