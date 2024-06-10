@@ -1,0 +1,16 @@
+<h1>検索結果</h1>
+
+<% if @range == "User" %>
+  <h2>ユーザー検索結果</h2>
+  <% @users.each do |user| %>
+    <div>
+      <%= link_to image_tag(user.get_profile_image(100, 100)), user_path(user) %>
+      <%= link_to user.name, user_path(user) %>
+    </div>
+  <% end %>
+<% else %>
+  <h2>投稿検索結果</h2>
+    <div>
+      <%= render 'public/posts/list', posts: @posts %>
+    </div>
+<% end %>

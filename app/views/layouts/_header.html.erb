@@ -47,14 +47,14 @@
               <%= link_to '投稿一覧', posts_path, class: 'nav-link text-white' %>
             </li>
             <li>
-              <!-- <　%= link_to '検索', cart_path, class: 'nav-link text-white' %> -->
-            </li>
-            <li>
               <!-- < %= link_to 'いいね一覧', favorites_index_path, class: 'nav-link text-white' %> -->
               <!-- ↑あってるかわからん -->
             </li>
             <li>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white' %>
+            </li>
+            <li>
+              <%= render 'searches/search' %>
             </li>
             <% else %>
             <li>

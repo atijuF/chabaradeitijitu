@@ -17,5 +17,19 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+  #検索機能、SQLのOR条件使用
+  def self.looks(search, word)
+    if search == "forward_match"
+      @posts = Post.where("title LIKE ? OR body LIKE ?", "#{word}%", "#{word}%")
+    elsif search == "backward_match"
+      @posts = Post.where("title LIKE ? OR body LIKE ?", "%#{word}", "%#{word}")
+    elsif search == "perfect_match"
+      @posts = Post.where("title = ? OR body = ?", word, word)
+    elsif search == "partial_match"
+      @posts = Post.where("title LIKE ? OR body LIKE ?", "%#{word}%", "%#{word}%")
+    else
+      @posts = Post.all
+    end
+  end
   
 end

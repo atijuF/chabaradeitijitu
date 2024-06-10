@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
+    get "search" => "searches#search"
+    
     scope module: :public do
     root 'homes#top'
     get '/about' => 'homes#about'
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
       resources :favorites, only: [:index, :create, :destroy]
     end
     resources :tags, only: [:index, :show]
+    
     #resources :relationships, only: [:index, :create, :destroy] 不要だと思われる
   end
   
@@ -25,5 +28,6 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :tags, only: [:index, :create, :edit, :update, :destroy]
+    get "search" => "searches#search"
   end
 end
