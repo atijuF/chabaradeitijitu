@@ -6,6 +6,7 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    #@post.tag_id = params[:post][:tag_id] タグIDの設定
     if @post.save
       flash[:notice] = "投稿に成功しました！"
       redirect_to posts_path
@@ -39,6 +40,7 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :post_image)
+    #, :tag_id) タグIDの許可
   end
   
   def is_matching_login_user

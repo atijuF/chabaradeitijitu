@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2024_06_09_034623) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "tag_id", null: false
+    t.integer "tag_id"
     t.string "title", null: false
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(version: 2024_06_09_034623) do
     t.integer "follower_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["follow_id", "follower_id"], name: "index_relationships_on_follow_id_and_follower_id", unique: true
+    t.index ["follow_id"], name: "index_relationships_on_follow_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "tags", force: :cascade do |t|
