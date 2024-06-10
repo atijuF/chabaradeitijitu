@@ -1,16 +1,16 @@
 <h2>新規投稿</h2>
-<% if post.errors.any? %>
+<% if @new_post.errors.any? %>
   <div class="alert alert-danger">
-    <%= post.errors.count %> errors prohibited this post from being saved:
+    <%= @new_post.errors.count %> errors prohibited this post from being saved:
     <ul>
-      <% post.errors.full_messages.each do |message| %>
+      <% @new_post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
 
-<%= form_with model: post, local: true do |f| %>
+<%= form_with model: @new_post, local: true do |f| %>
   <div class="form-group">
     <%= f.label :post_image, "投稿画像" %>
     <%= f.file_field :post_image, class: "form-control", accept: "image/*" %>

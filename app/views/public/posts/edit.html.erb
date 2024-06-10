@@ -1,2 +1,39 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<h1>編集</h1>
+
+<% if @post.errors.any? %>
+  <%= @post.errors.count %> errors occurred.
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @post do |f| %>
+  <div class="form-group">
+    <%= f.label :post_image, "投稿画像" %>
+    <%= f.file_field :post_image, class: "form-control", accept: "image/*" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  
+  <!-- <div class="form-group">
+    < %= f.label :tag_id, "タグ" %>
+    < %= f.collection_select :tag_id, Tag.all, :id, :name, prompt: "タグを選択" %>
+  </div> -->
+  
+  <div class="form-group">
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit '投稿', class: "btn btn-primary" %>
+  </div>
+  
+  <%= link_to "Show", post_path(@post.id) %>
+  <%= link_to "Back", posts_path %>
+<% end %>

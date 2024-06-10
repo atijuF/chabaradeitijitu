@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   def new
-    @post = Post.new
+    @new_post = Post.new
   end
   
   def create
@@ -21,25 +21,41 @@ class Public::PostsController < ApplicationController
   def index
     @posts = Post.page(params[:page])
     @user = current_user
-    @post = Post.new
+    @new_post = Post.new
   end
 
   def show
+    @post = Post.find(params[:id])
+    @user = @post.user
+    @new_post = Post.new
   end
 
   def edit
+    @post = Post.find(params[:id])
+    is_matching_login_user
   end
-
+  
   def update
+    is_matching_login_user
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      flash[:notice] = "successfully"
+      redirect_to post_path(@post.id)  
+    else
+      render:edit
+    end
   end
-
+  
   def destroy
+    post = Post.find(params[:id]) 
+    post.destroy
+    redirect_to '/posts'
   end
   
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_image)
+    params.require(:post).permit(:title, :body, :post_image, :favorite)
     #, :tag_id) タグIDの許可
   end
   

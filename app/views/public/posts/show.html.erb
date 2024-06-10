@@ -1,2 +1,48 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'public/users/sidebar', user: @user %>
+      <%= render 'public/posts/sidebar', post: @new_post %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>投稿詳細</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ユーザー</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">本文</th>
+            <th scope="col">投稿画像</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><%= link_to image_tag(@user.get_profile_image(100, 100)), user_path(@user.id) %></td>
+              <td><%= @post.title %></td>
+              <td><%= @post.body %></td>
+              <td><%= image_tag(@post.get_image, size: "100x100") %></td>
+              
+              <% if current_user == @post.user %>
+              <td>
+                <%= link_to "Edit", edit_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
+              <td>
+                <%= link_to "Destroy", post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %>
+              </td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="6">
+                <% if @post.favorited_by?(current_user) %>
+                  <%= button_to '♥ いいね', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete %>
+                <% else %>
+                  <%= button_to '♡ いいね', post_favorites_path(@post), method: :post %>
+                <% end %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

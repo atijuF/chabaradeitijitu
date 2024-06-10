@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <!-- < %= render 'users/sidebar', user: @user %> -->
-      <%= render 'public/posts/sidebar', post: @post %>
+      <%= render 'public/users/sidebar', user: @user %>
+      <%= render 'public/posts/sidebar', post: @new_post %>
     </div>
     <div class="col-md-8 offset-md-1">
       <%= render 'public/posts/list', posts: @posts %>
