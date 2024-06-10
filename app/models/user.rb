@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :relationships, dependent: :destroy
   has_many :follows ,dependent: :destroy
   has_many :followers ,dependent: :destroy
+  #いいね一覧表示のため
+  has_many :favorite_posts, through: :favorites, source: :post
   
   validates :name, presence: true
   

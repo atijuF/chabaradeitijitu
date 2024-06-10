@@ -1,26 +1,40 @@
 <div class="container">
   <div class="row">
-    <h2 class="px-4 my-4", style="background-color: #FFDBC9;">ユーザーページ</h2>
-  </div>
-  
-  
-  <div class="row my-3">
-    <h3 class="font-weight-bold col-6">登録情報
-      <%= link_to "編集する", edit_user_path(@user), class: "btn btn-success ml-5 col-3" %>
-    </h3>
-  </div>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <div class="row col-7">
-    <table class="table table-bordered" style="font-size: 20px">
+    <div class="col-md-3">
+      <%= render 'public/users/sidebar', user: @user %>
+      <%= render 'public/posts/sidebar', post: @new_post %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <%= render 'public/posts/list', posts: @posts %>
+    </div>
+    <div>いいねした投稿一覧</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ユーザー</th>
+          <th scope="col">タイトル</th>
+          <th scope="col">本文</th>
+          <th scope="col">投稿画像</th>
+        </tr>
+      </thead>
       <tbody>
+      <% if @favorite_posts.any? %>
+      <% @favorite_posts.each do |post| %>
         <tr>
-          <td class="col-2", style="background-color: #FFDBC9;">氏名</td>
-          <td class="col-4"><%= @user.name %></td>
+          <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), user_path(post.user_id) %></td>
+          <td><%= link_to post.title, post_path(post.id) %></td>
+          <td><%= post.body %></td>
+          <td><%= image_tag(post.get_image, size: "100x100") %></td>
+          <td colspan="6">
+            <% if post.favorited_by?(current_user) %>
+              <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
+            <% else %>
+              <%= button_to '♡ いいね', post_favorites_path(post), method: :post %>
+            <% end %>
+          </td>
         </tr>
-        <tr>
-          <td style="background-color: #FFDBC9;">メールアドレス</td>
-          <td><%= @user.email %></td>
-        </tr>
+      <% end %>
+      <% end %>
       </tbody>
     </table>
   </div>

@@ -10,7 +10,8 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.page(params[:page])
-    #@book = Book.new
+    @new_post = Post.new
+    @favorite_posts = @user.favorite_posts
   end
 
   def update
