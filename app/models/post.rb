@@ -15,8 +15,10 @@ class Post < ApplicationRecord
   end
   
   def favorited_by?(user)
+    return false unless user
     favorites.exists?(user_id: user.id)
   end
+  
   #検索機能、SQLのOR条件使用
   def self.looks(search, word)
     if search == "forward_match"

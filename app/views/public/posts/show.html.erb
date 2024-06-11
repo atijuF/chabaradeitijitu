@@ -39,11 +39,11 @@
                 <% else %>
                   <%= button_to '♡ いいね', post_favorites_path(@post), method: :post %>
                 <% end %>
+              <%= render 'public/comments/comment', post: @post %>
               </td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-md-3"><%= render 'public/comments/comment', post: @post %></div>
   </div>
 </div>

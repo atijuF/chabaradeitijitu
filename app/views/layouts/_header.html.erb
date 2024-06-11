@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chabaradeitijitu</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
-    <script src="https://kit.fontawesome.com/3ed65e004c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-  </head>
-
-  <body class="d-flex flex-column vh-100", style="background-color: #FFFFEE;">
+  
      <header class="shadow-sm", style="background-color: #ff8856;" >
       <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -24,50 +9,65 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if admin_signed_in? %>
-            <li>
-              <!-- <　%= link_to '検索', admin_path, class: 'nav-link text-white' %> -->
-            </li>
-            <li>
+            <li class="nav-item">
               <%= link_to '会員一覧', admin_users_path, class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to '投稿一覧', admin_posts_path, class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-white' %>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#searchModal">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              検索
             </li>
             <% elsif user_signed_in? %>
             <li class="nav-link text-white" style="margin-right: 200px;">
               ようこそ、<%= current_user.name %>さん！
             </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-circle-user"></i>
               <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-mug-hot"></i>
               <%= link_to '投稿一覧', posts_path, class: 'nav-link text-white' %>
             </li>
-            <li>
-              <!-- < %= link_to 'いいね一覧', favorites_index_path, class: 'nav-link text-white' %> -->
-              <!-- ↑あってるかわからん -->
-            </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-right-from-bracket"></i>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white' %>
             </li>
-            <li>
-              <%= render 'searches/search' %>
+            <li class="nav-item">
+              <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#searchModal">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              検索
             </li>
             <% else %>
-            <li>
+            <li class="nav-item">
+              <i class="fa fa-solid fa-link"></i>
               <%= link_to 'About', about_path, class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-mug-hot"></i>
               <%= link_to '投稿一覧', posts_path, class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-user-plus"></i>
               <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white' %>
             </li>
-            <li>
+            <li class="nav-item">
+              <i class="fa-solid fa-right-to-bracket"></i>
               <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-white' %>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#searchModal">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              検索
             </li>
             <% end %>
             </ul>
@@ -76,12 +76,12 @@
       </nav>
     </header>
 
-    <main class="mb-auto">
-    </main>
-
-    <fotter class="container-fluid text-dark container-fluid", style="background-color: #ff8856;">
-        <div class="row">
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchModalLabel"><%= render 'searches/search' %></h5>
         </div>
-    </fotter>
-  </body>
-</html>
+      </div>
+    </div>
+  </div>

@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  
   def new
     @new_post = Post.new
   end

@@ -1,18 +1,27 @@
-
-  <%= image_tag user.get_profile_image(100,100) %>
-    <table>
-      <tbody>
-        <tr></tr>
-        <tr>
-          <th>name</th>
-          <th><%= user.name %></th>
-        </tr>
-<!--        <tr>
-          <th>introduction</th>
-          <th>< %= user.introduction %></th>
-        </tr> -->
-      </tbody>
-    </table>
-    <%= link_to edit_user_path(user.id), class: 'btn btn-outline-secondary btn-block' do %>
+<% if user %>
+  <%= image_tag user.get_profile_image(100, 100) %>
+  <table>
+    <tbody>
+      <tr></tr>
+      <tr>
+        <th>name</th>
+        <th><%= user.name %></th>
+      </tr>
+    </tbody>
+  </table>
+  <%= link_to edit_user_path(user.id), class: 'btn btn-outline-secondary btn-block' do %>
     <i class="fa-solid fa-user-gear"></i>
-    <% end %>
+  <% end %>
+<% else %>
+  <%= image_tag 'no_image.jpg', size: "100x100" %>
+  <table>
+    <tbody>
+      <tr></tr>
+      <tr>
+        <th>name</th>
+        <th>ゲストユーザー</th>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+<!-- ゲストユーザーが投稿一覧を閲覧するため -->
