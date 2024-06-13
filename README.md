@@ -1,24 +1,32 @@
-# README
+# 茶腹で一日
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## サイト概要
+### サイトテーマ
+紅茶やお茶について語り合うSNSです。
+​
+### テーマを選んだ理由
+元々紅茶が好きで愛飲しているのですが、たまには別のメーカのーの紅茶を飲んでみようと思った際に、他の方々の意見を知りたいと思い調べたところ、個人で運営しているレビューサイトが多く、意見を酌み交わしているサイトは多くありませんでした。
+また、紅茶好きを明言していることから紅茶を贈答される機会が多く、好みでないお茶をいただくこともしばしばありました。
+それらのことから、紅茶について意見を酌み交わせる場を作成したいと考え、このようなテーマにしました。
+​
+### ターゲットユーザ
+- 美味しい紅茶を知りたい・飲みたい・話したい人
+- 贈答用や新規購入を検討している人
+​
+### 主な利用シーン
+- 紅茶について何がしか知識を深めたい、見識を広げたい時
+- 美味しい紅茶を飲んだり淹れた時
+​
+## 設計書
+後ほど作成予定
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+著作権を考慮し、架空のデータを扱う予定です。
+なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
