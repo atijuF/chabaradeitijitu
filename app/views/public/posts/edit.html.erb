@@ -11,7 +11,13 @@
 
 <%= form_with model: @post do |f| %>
   <div class="form-group">
-    <%= f.label :post_image, "投稿画像" %>
+    <%= f.label :post_image, "現在の投稿画像" %><br>
+    <% if @post.post_image.attached? %>
+      <%= image_tag @post.post_image, size: "100x100", class: "current-image" %>
+    <% else %>
+      <p>画像がありません</p>
+    <% end %>
+    <%= f.label :post_image, "新しい投稿画像" %>
     <%= f.file_field :post_image, class: "form-control", accept: "image/*" %>
   </div>
 

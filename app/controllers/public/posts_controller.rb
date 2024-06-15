@@ -10,7 +10,7 @@ class Public::PostsController < ApplicationController
     #@post.tag_id = params[:post][:tag_id] タグIDの設定
     if @post.save
       flash[:notice] = "投稿に成功しました！"
-      redirect_to posts_path
+      redirect_to @post
     else
       @user = current_user
       flash.now[:alert] = "投稿に失敗しました。"
@@ -50,7 +50,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id]) 
     post.destroy
-    redirect_to '/posts'
+    redirect_to user_path(current_user)
   end
   
   private
