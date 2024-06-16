@@ -24,8 +24,8 @@ Rails.application.routes.draw do
     #resources :relationships, only: [:index, :create, :destroy] 不要だと思われる
   end
   
-    scope module: :admin do
-    get '/' => 'homes#top'
+    namespace :admin do
+    root 'homes#top'
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :tags, only: [:index, :create, :edit, :update, :destroy]

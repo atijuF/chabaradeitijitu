@@ -1,7 +1,7 @@
-<% if obj.errors.any? %>
-  <%= obj.errors.count %>件のエラー
+<% if resource.errors.any? %>
+  <%= resource.errors.count %>件のエラー
   <ul>
-    <% obj.errors.full_messages.each do |message| %>
+    <% resource.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
   </ul>
