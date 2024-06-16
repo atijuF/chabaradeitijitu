@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
   
   def new
     @new_post = Post.new
@@ -13,8 +15,9 @@ class Public::PostsController < ApplicationController
       redirect_to @post
     else
       @user = current_user
-      flash.now[:alert] = "投稿に失敗しました。"
+      @new_post = @post
       @posts = Post.page(params[:page])
+      flash.now[:alert] = "投稿に失敗しました。"
       render :index
     end
   end
@@ -40,7 +43,7 @@ class Public::PostsController < ApplicationController
     is_matching_login_user
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:notice] = "successfully"
+      flash[:notice] = "編集に成功しました！"
       redirect_to post_path(@post.id)  
     else
       render:edit

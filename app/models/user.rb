@@ -7,13 +7,13 @@ class User < ApplicationRecord
   has_many :posts ,dependent: :destroy
   has_many :comments ,dependent: :destroy
   has_many :favorites ,dependent: :destroy
-  has_many :relationships, dependent: :destroy
-  has_many :follows ,dependent: :destroy
-  has_many :followers ,dependent: :destroy
+  has_many :relationships, foreign_key: :follower_id, dependent: :destroy
+  has_many :follows, through: :relationships, source: :follow
   #いいね一覧表示のため
   has_many :favorite_posts, through: :favorites, source: :post
   
   validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
   
   has_one_attached :profile_image
   
