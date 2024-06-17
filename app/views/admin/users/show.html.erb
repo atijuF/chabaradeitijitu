@@ -1,2 +1,60 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h2 class="px-4 my-4", style="background-color: #FFDBC9;"><%= @user.name %>さんの会員詳細</h2>
+  </div>
+  
+  <div class="row", style="font-size: 23px;">
+    <div class="col-3">
+      <p>会員ID</p>
+    </div>
+    <div class="col-3">
+      <%= @user.id %>
+    </div>
+  </div>
+  
+  <div class="row", style="font-size: 23px;">
+    <div class="col-3">
+      <p>氏名</p>
+    </div>
+    <div class="col-3">
+      <%= @user.name %>
+    </div>
+  </div>
+  
+  <div class="row", style="font-size: 23px;">
+    <div class="col-3">
+      <p>プロフィール画像</p>
+    </div>
+    <div class="col-3">
+      <%= image_tag @user.get_profile_image(100, 100) %>
+    </div>
+  </div>
+  
+  <div class="row", style="font-size: 23px;">
+    <div class="col-3">
+      <p>メールアドレス</p>
+    </div>
+    <div class="col-3">
+      <%= @user.email %>
+    </div>
+  </div>
+  
+  <div class="row", style="font-size: 23px;">
+    <div class="col-3">
+      <p>会員ステータス</p>
+    </div>
+    <div class="col-3">
+      <% if @user.is_active %>
+       <strong class="text-success">有効</strong>
+      <% else %>
+       <strong class="text-muted">退会</strong>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="row mt-3 mb-5">
+    <div class="col-3"></div>
+    <%= link_to "編集する", edit_admin_user_path(@user), class:"btn btn-success mr-5" %>
+    <%= link_to "Topに戻る",admin_root_path, class:"btn btn-primary ml-5" %>
+  </div>
+</div>

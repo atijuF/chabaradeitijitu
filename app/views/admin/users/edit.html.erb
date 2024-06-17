@@ -1,2 +1,67 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h2 class="my-4 px-4", style="background-color: #FFDBC9;">顧客編集画面</h2>
+  </div>
+    
+    <%= form_with model: @user, url: admin_user_path(@user) do |f| %>
+    
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :会員id %>
+        </div>
+        <div class="col-3">
+          <%= @user.id %>
+        </div>
+      </div>
+      
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :氏名 %>
+        </div>
+        <div class="col-3">
+          <%= f.text_field :name, autofocus: true, placeholder: "令和", autocomplete: "name" %>
+        </div>
+      </div>
+    
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :プロフィール画像 %>
+        </div>
+        <div class="col-3">
+          <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+        </div>
+      </div>
+      
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :メールアドレス %>
+        </div>
+        <div class="col-3">
+          <%= f.email_field :email, autofocus: true, placeholder: "sample@example.com", autocomplete: "email", size: "40" %>
+        </div>
+      </div>
+      
+      <div class="row col-form-label-lg">
+        <div class="col-1"></div>
+        <div class="col-3">
+          <%= f.label :is_active, '会員ステータス' %>
+        </div>
+        <div class="col-3">
+        <%= f.radio_button :is_active, true, checked: @user.is_active == true %>
+        <%= f.label :is_active, '有効' %>
+        <%= f.radio_button :is_active, false, checked: @user.is_active == false %>
+        <%= f.label :is_active, '退会' %>
+        </div>
+      </div>
+    	
+    	<div class="row mt-3 mb-5">
+        <div class="col"></div>
+        <%= f.submit "変更を保存", class: "btn btn-success" %>
+        <div class="col"></div>
+    　</div>
+    <% end %>
+</div>
