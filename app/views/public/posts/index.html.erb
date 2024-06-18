@@ -4,8 +4,8 @@
       <%= render 'public/users/sidebar', user: @user %>
       <%= render 'public/posts/sidebar', post: @new_post %>
     </div>
-  </div>
-  <div class="col-md-8 offset-md-1">
-    <%= render 'public/posts/list', posts: @posts %>
+    <div class="col-md-9">
+      <%= render 'public/posts/list', posts: @posts %>
+    </div>
   </div>
 </div>

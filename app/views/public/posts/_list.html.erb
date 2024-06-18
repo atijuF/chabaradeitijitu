@@ -14,12 +14,20 @@
         <td><%= link_to post.title, post_path(post.id) %></td>
         <td><%= post.body %></td>
         <td><%= image_tag(post.get_image, size: "100x100") %></td>
-        <td colspan="6">
+        <td colspan="4">
           <% if post.favorited_by?(current_user) %>
             <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
           <% else %>
             <%= button_to '♡ いいね', post_favorites_path(post), method: :post %>
           <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @inappropriate_post_message.present? %>
+      <tr>
+        <td colspan="4">
+          <p class="text-danger"><%= @inappropriate_post_message %></p>
         </td>
       </tr>
     <% end %>

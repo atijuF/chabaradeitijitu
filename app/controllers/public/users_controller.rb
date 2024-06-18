@@ -12,9 +12,11 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.page(params[:page])
+    @posts = @user.posts.where(status: 0).page(params[:page])
     @new_post = Post.new
     @favorite_posts = @user.favorite_posts
+    # ステータスが1の投稿の確認とメッセージ表示
+    @inappropriate_post_message = "この投稿は不適切なため管理者によって削除されました。" if @user.posts.exists?(status: 1)
   end
 
   def update

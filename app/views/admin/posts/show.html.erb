@@ -19,11 +19,12 @@
               <td><%= @post.body %></td>
               <td><%= image_tag(@post.get_image, size: "100x100") %></td>
               <td>
-              <% if @post.is_active %>
-                <strong class="text-success">有効</strong>
-              <% else %>
-                <strong class="text-muted">退会</strong>
-              <% end %></td>
+                <% if @post.status == "active" %>
+                  <strong class="text-success">有効</strong>
+                <% else %>
+                  <strong class="text-muted">無効</strong>
+                <% end %>
+              </td>
               <td><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
             </tr>
         </tbody>

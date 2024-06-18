@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   
   has_one_attached :post_image
+  enum status: {active: 0, inactive: 1}
   
   validates :title, presence: true
   validates :body, presence: true
@@ -37,5 +38,7 @@ class Post < ApplicationRecord
     end
   end
   
-  attribute :is_active, :boolean, default: true
+  def self.active_posts_count
+    where(status: :active).count
+  end
 end

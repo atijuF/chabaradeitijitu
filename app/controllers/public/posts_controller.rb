@@ -23,13 +23,17 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.where(status: 0).page(params[:page])
     @user = current_user
     @new_post = Post.new
   end
 
   def show
     @post = Post.find(params[:id])
+    # if @post.status != 'active'
+      redirect_to posts_path and return if @post.status != 'active'
+      # return
+    # end
     @user = @post.user
     @new_post = Post.new
   end
@@ -59,7 +63,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :favorite, :is_active)
+    params.require(:post).permit(:title, :body, :post_image, :favorite, :status)
     #, :tag_id) タグIDの許可
   end
   
