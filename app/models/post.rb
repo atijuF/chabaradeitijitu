@@ -37,4 +37,5 @@ class Post < ApplicationRecord
     end
   end
   
+  attribute :is_active, :boolean, default: true
 end

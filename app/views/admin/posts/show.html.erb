@@ -1,2 +1,33 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h2 class="px-4 my-4", style="background-color: #FFDBC9;">投稿詳細</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ユーザー</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">本文</th>
+            <th scope="col">投稿画像</th>
+            <th scope="col">ステータス</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><%= link_to image_tag(@user.get_profile_image(100, 100)), admin_user_path(@user.id) %></td>
+              <td><%= @post.title %></td>
+              <td><%= @post.body %></td>
+              <td><%= image_tag(@post.get_image, size: "100x100") %></td>
+              <td>
+              <% if @post.is_active %>
+                <strong class="text-success">有効</strong>
+              <% else %>
+                <strong class="text-muted">退会</strong>
+              <% end %></td>
+              <td><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

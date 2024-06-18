@@ -39,4 +39,8 @@ class User < ApplicationRecord
     end
   end
   
+  # is_activeがtrueならfalseを返すようにしている
+  def active_for_authentication?
+    super && (is_active == true)
+  end
 end

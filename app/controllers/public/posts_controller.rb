@@ -59,7 +59,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :favorite)
+    params.require(:post).permit(:title, :body, :post_image, :favorite, :is_active)
     #, :tag_id) タグIDの許可
   end
   
