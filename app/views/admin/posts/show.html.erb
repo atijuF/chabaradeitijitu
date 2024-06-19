@@ -13,6 +13,13 @@
           </tr>
         </thead>
         <tbody>
+          <% if @post.status == "inactive" %>
+          <tr>
+            <td colspan="6">
+              <p class="text-danger">この投稿は管理者によって削除されました。</p>
+            </td>
+          </tr>
+          <% else %>
             <tr>
               <td><%= link_to image_tag(@user.get_profile_image(100, 100)), admin_user_path(@user.id) %></td>
               <td><%= @post.title %></td>
@@ -26,7 +33,9 @@
                 <% end %>
               </td>
               <td><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
+              <td><%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %></td>
             </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

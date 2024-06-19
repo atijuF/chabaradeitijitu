@@ -27,10 +27,16 @@ class Admin::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id]) 
     post.destroy
-    redirect_to admin_post_path
+    redirect_to admin_posts_path, notice: '投稿を削除しました。'
   end
   
    private
+
+  def set_post
+    @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to admin_posts_path, alert: '投稿が見つかりません。'
+  end
 
   def post_params
     params.require(:post).permit(:title, :body, :post_image, :status, :user_id, :tag_id)

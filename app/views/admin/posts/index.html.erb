@@ -27,6 +27,7 @@
                 <strong class="text-muted">無効</strong>
               <% end %>
             </td>
+            <td><%= link_to "Edit", edit_admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
             </tr>
           <% end %>
         </tbody>
