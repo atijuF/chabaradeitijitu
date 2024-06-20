@@ -5,11 +5,10 @@ class SearchesController < ApplicationController
     @search = params[:search]
     if @range == "User"
       @users = User.looks(params[:search], params[:word])
-    else
+    elsif @range == "Post"
       @posts = Post.looks(params[:search], params[:word])
+    elsif @range == "Tag"
+      @posts = Post.joins(:tags).where(tags: { name: params[:word] }).distinct
     end
   end
-  
-  
-  
 end

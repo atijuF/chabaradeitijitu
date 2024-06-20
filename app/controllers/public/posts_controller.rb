@@ -9,7 +9,9 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    #@post.tag_id = params[:post][:tag_id] タグIDの設定
+    if params[:post][:tag_list].present?
+      @post.tag_list = params[:post][:tag_list]
+    end
     if @post.save
       flash[:notice] = "投稿に成功しました！"
       redirect_to @post
@@ -30,10 +32,7 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    # if @post.status != 'active'
       redirect_to posts_path and return if @post.status != 'active'
-      # return
-    # end
     @user = @post.user
     @new_post = Post.new
   end
@@ -63,8 +62,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :favorite, :status)
-    #, :tag_id) タグIDの許可
+    params.require(:post).permit(:title, :body, :post_image, :favorite, :status, :tag_list)
   end
   
   def is_matching_login_user

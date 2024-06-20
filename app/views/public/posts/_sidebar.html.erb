@@ -22,10 +22,10 @@
       <%= f.text_field :title, class: "form-control" %>
     </div>
     
-    <!-- <div class="form-group">
-      < %= f.label :tag_id, "タグ" %>
-      < %= f.collection_select :tag_id, Tag.all, :id, :name, prompt: "タグを選択" %>
-    </div> -->
+    <div class="form-group">
+      <%= f.label :tag_list, "タグ (カンマ区切り)" %>
+      <%= f.text_field :tag_list, class: "form-control", placeholder: "カンマ区切りで複数入力" %>
+    </div>
     
     <div class="form-group">
       <%= f.label :body, "本文" %>

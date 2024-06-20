@@ -15,6 +15,7 @@
         <td><%= post.body %></td>
         <td><%= image_tag(post.get_image, size: "100x100") %></td>
         <td colspan="4">
+          <p><strong>タグ:</strong> <%= post.tag_list %></p>
           <% if post.favorited_by?(current_user) %>
             <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
           <% else %>

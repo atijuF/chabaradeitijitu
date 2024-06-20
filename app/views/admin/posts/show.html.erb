@@ -9,6 +9,7 @@
             <th scope="col">本文</th>
             <th scope="col">投稿画像</th>
             <th scope="col">ステータス</th>
+            <th scope="col">タグ</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -32,8 +33,9 @@
                   <strong class="text-muted">無効</strong>
                 <% end %>
               </td>
-              <td><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
-              <td><%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %></td>
+              <td><%= @post.tag_list %></td>
+              <td class="d-flex"><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
+              <td class="d-flex"><%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %></td>
             </tr>
           <% end %>
         </tbody>

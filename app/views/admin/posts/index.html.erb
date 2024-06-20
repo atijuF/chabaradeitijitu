@@ -11,6 +11,7 @@
             <th scope="col">本文</th>
             <th scope="col">投稿画像</th>
             <th scope="col">ステータス</th>
+            <th scope="col">タグ</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <strong class="text-muted">無効</strong>
               <% end %>
             </td>
+            <td><%= post.tag_list %></td>
             <td><%= link_to "Edit", edit_admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
             </tr>
           <% end %>

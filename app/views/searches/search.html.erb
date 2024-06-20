@@ -8,9 +8,14 @@
       <%= link_to user.name, user_path(user) %>
     </div>
   <% end %>
-<% else %>
+<% elsif @range == "Post" %>
   <h2>投稿検索結果</h2>
-    <div>
-      <%= render 'public/posts/list', posts: @posts %>
-    </div>
+  <div>
+    <%= render 'public/posts/list', posts: @posts %>
+  </div>
+<% elsif @range == "Tag" %>
+  <h2>タグ検索結果</h2>
+  <div>
+    <%= render 'public/posts/list', posts: @posts %>
+  </div>
 <% end %>

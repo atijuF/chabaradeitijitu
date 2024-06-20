@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
-  belongs_to :tag, optional: true
+  has_many :post_tags, dependent: :destroy
+  has_many :tags, through: :post_tags
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   
@@ -40,5 +41,16 @@ class Post < ApplicationRecord
   
   def self.active_posts_count
     where(status: :active).count
+  end
+  
+  def tag_list
+    tags.map(&:name).join(', ')
+  end
+
+  def tag_list=(names)
+    self.tags = names.split(',').map do |n|
+      next if n.blank?
+      Tag.where(name: n.strip).first_or_create!
+    end.compact
   end
 end
