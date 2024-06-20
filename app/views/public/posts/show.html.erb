@@ -34,7 +34,12 @@
             </tr>
             <tr>
               <td colspan="6">
-                <p><strong>タグ:</strong> <%= @post.tag_list %></p>
+                <p>
+                  <strong>タグ</strong>
+                  <% @post.tags.each do |tag| %>
+                    <%= link_to tag.name, tag_path(tag) %>
+                  <% end %>
+                </p>
                 <% if @post.favorited_by?(current_user) %>
                   <%= button_to '♥ いいね', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete %>
                 <% else %>
