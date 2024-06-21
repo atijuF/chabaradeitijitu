@@ -14,21 +14,22 @@ Rails.application.routes.draw do
     scope module: :public do
     root 'homes#top'
     get '/about' => 'homes#about'
-    resources :users, only: [:edit, :show, :update, :destroy]
+    resources :users, only: [:edit, :show, :update, :destroy] do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+    end
     resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
       resources :favorites, only: [:index, :create, :destroy]
       resources :comments, only: [:create, :destroy]
     end
     resources :tags, only: [:index, :show]
-    
-    #resources :relationships, only: [:index, :create, :destroy] 不要だと思われる
   end
   
     namespace :admin do
     root 'homes#top'
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :tags, only: [:index, :create, :edit, :update, :destroy]
-    get "search" => "searches#search"
+    resources :tags
   end
 end

@@ -1,0 +1,4 @@
+<h1><%= @user.name %>のフォロー一覧</h1>
+  <%= render partial: 'public/relationships/user', collection: @users, as: :user %>
+  <%= paginate @users %>
+

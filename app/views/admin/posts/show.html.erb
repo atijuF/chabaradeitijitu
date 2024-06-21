@@ -33,7 +33,11 @@
                   <strong class="text-muted">無効</strong>
                 <% end %>
               </td>
-              <td><%= @post.tag_list %></td>
+              <td>
+                <% @post.tags.each do |tag| %>
+                  <%= link_to tag.name, admin_tag_path(tag), class: "badge m-1" %>
+                <% end %>
+              </td>
               <td class="d-flex"><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
               <td class="d-flex"><%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %></td>
             </tr>
