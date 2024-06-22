@@ -11,6 +11,15 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   
+  scope :recent_posts, -> { order(created_at: :desc).limit(5) }
+  scope :most_liked_posts, -> { 
+    select('posts.*, COUNT(favorites.id) AS likes_count')
+    .left_joins(:favorites)
+    .group('posts.id')
+    .order('likes_count DESC')
+    .limit(5)
+  }
+  
   def get_image
     unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

@@ -1,4 +1,44 @@
-
 <h2>
-  Topページ
+  こちらは管理者ページです。
 </h2>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>新着投稿</h4>
+      <div class="row">
+        <% @recent_posts.each do |post| %>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <%= image_tag(post.get_image, class: "card-img-top", alt: "Post Image", style: "object-fit: cover; height: 200px;") %>
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
+                <p class="card-text"><%= post.created_at.strftime('%Y-%m-%d') %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4>いいねが多い投稿</h4>
+      <div class="row">
+        <% @popular_posts.each do |post| %>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <%= image_tag(post.get_image, class: "card-img-top", alt: "Post Image", style: "object-fit: cover; height: 200px;") %>
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
+                <p class="card-text">いいね数: <%= post.likes_count %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,6 +1,6 @@
 <%= form_with url: search_path, method: :get, local: true do %>
   <%= label_tag :range, "検索対象" %>
-  <%= select_tag :range, options_for_select([["ユーザー", "User"], ["投稿", "Post"], ["タグ", "Tag"]]), prompt: "選択してください" %>
+  <%= select_tag :range, options_for_select([["ユーザー", "User"], ["投稿", "Post"]]), prompt: "選択してください" %>
   
   <%= label_tag :search, "検索条件" %>
   <%= select_tag :search, options_for_select([["前方一致", "forward_match"], ["後方一致", "backward_match"], ["完全一致", "perfect_match"], ["部分一致", "partial_match"]]), prompt: "選択してください" %>

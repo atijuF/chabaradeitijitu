@@ -35,7 +35,7 @@
               </td>
               <td>
                 <% @post.tags.each do |tag| %>
-                  <%= link_to tag.name, admin_tag_path(tag), class: "badge m-1" %>
+                  <%= link_to tag.name, admin_tags_path(tag), class: "badge m-1" %>
                 <% end %>
               </td>
               <td class="d-flex"><%= link_to "Edit", edit_admin_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>

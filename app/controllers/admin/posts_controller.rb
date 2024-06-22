@@ -39,7 +39,6 @@ class Admin::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :status, :user_id, :tag_id)
-    #, :tag_id) タグIDの許可
+    params.require(:post).permit(:title, :body, :post_image, :status, :user_id, :tag_id, :tag_list)
   end
 end

@@ -1,4 +1,5 @@
 class Admin::TagsController < ApplicationController
+  before_action :authenticate_admin!
   def index
     @tags = Tag.page(params[:page])
   end
@@ -33,6 +34,10 @@ class Admin::TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @tag.destroy
     redirect_to admin_tags_path, notice: 'タグが削除されました'
+  end
+  
+  def search
+    @tags = Tag.looks(params[:search], params[:word])
   end
 
   private

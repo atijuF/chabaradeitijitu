@@ -14,10 +14,12 @@
       <i class="fa-solid fa-user-gear"></i>
     <% end %>
   <% else %>
-    <% if current_user.following?(user) %>
-      <%= link_to "フォロー外す", user_relationships_path(user.id), class: 'btn btn-outline-secondary btn-block', method: :delete %>
-    <% else %>
-      <%= link_to "フォローする", user_relationships_path(user.id), class: 'btn btn-outline-secondary btn-block', method: :post %>
+    <% if user_signed_in? %>
+      <% if current_user.following?(user) %>
+        <%= link_to "フォロー外す", user_relationships_path(user.id), class: 'btn btn-outline-secondary btn-block', method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(user.id), class: 'btn btn-outline-secondary btn-block', method: :post %>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>
@@ -32,4 +34,3 @@
     </tbody>
   </table>
 <% end %>
-<!-- ゲストユーザーが投稿一覧を閲覧するため -->

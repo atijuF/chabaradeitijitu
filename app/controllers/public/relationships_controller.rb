@@ -8,9 +8,9 @@ class Public::RelationshipsController < ApplicationController
   end
   # フォロー外すとき
   def destroy
-    @user = Relationship.find(params[:id]).followed
-    current_user.unfollow(params[:user_id])
-    redirect_to request.referer  
+    @user = User.find(params[:user_id])
+    current_user.unfollow(@user)
+    redirect_to request.referer
   end
   # フォロー一覧
   def followings
