@@ -1,0 +1,2 @@
+$('#post-<%= @post.id %> .favorite-link').replaceWith('<%= j(link_to "♥ いいね", post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete, remote: true, class: "favorite-link") %>');
+<!-- 非同期通信 --

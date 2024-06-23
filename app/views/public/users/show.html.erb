@@ -19,23 +19,24 @@
       </thead>
       <tbody>
       <% if @favorite_posts.any? %>
-      <% @favorite_posts.each do |post| %>
-        <tr>
-          <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), user_path(post.user_id) %></td>
-          <td><%= link_to post.title, post_path(post.id) %></td>
-          <td><%= post.body %></td>
-          <td><%= image_tag(post.get_image, size: "100x100") %></td>
-          <td colspan="6">
-            <% if post.favorited_by?(current_user) %>
-              <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
-            <% else %>
-              <%= button_to '♡ いいね', post_favorites_path(post), method: :post %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+        <% @favorite_posts.each do |post| %>
+          <tr>
+            <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), user_path(post.user_id) %></td>
+            <td><%= link_to post.title, post_path(post.id) %></td>
+            <td><%= post.body %></td>
+            <td><%= image_tag(post.get_image, size: "100x100") %></td>
+            <td colspan="6">
+              <% if post.favorited_by?(current_user) %>
+                <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
+              <% else %>
+                <%= button_to '♡ いいね', post_favorites_path(post), method: :post %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
       </tbody>
     </table>
+    <%= paginate @favorite_posts, param_name: 'favorite_posts_page' %>
   </div>
 </div>

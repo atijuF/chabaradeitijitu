@@ -40,11 +40,13 @@
                     <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
                   <% end %>
                 </p>
-                <% if @post.favorited_by?(current_user) %>
-                  <%= button_to '♥ いいね', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete %>
-                <% else %>
-                  <%= button_to '♡ いいね', post_favorites_path(@post), method: :post %>
-                <% end %>
+                <div id="favorite-button">
+                  <% if @post.favorited_by?(current_user) %>
+                    <%= link_to '♥ いいね', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete, remote: true, class: 'favorite-link' %>
+                  <% else %>
+                    <%= link_to '♡ いいね', post_favorites_path(@post), method: :post, remote: true, class: 'favorite-link' %>
+                  <% end %>
+                </div>
               <%= render 'public/comments/comment', post: @post %>
               </td>
             </tr>
