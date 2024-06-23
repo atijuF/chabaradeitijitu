@@ -1,5 +1,5 @@
 <h4>コメントする</h4>
-<%= form_with model: [post, post.comments.build], local: true do |form| %>
+<%= form_with model: [@post, @post.comments.build], remote: true, html: { id: 'new_comment' } do |form| %>
   <div class="form-group">
     <%= form.text_area :comment, placeholder: "コメント入力", class: 'form-control' %>
   </div>
@@ -9,15 +9,19 @@
 <% end %>
 
 <h4>コメント一覧</h4>
-<% post.comments.each do |comment| %>
-  <div class="comment">
-    <% if comment.user %>
-      <p><%= link_to image_tag(comment.user.get_profile_image(100, 100)), user_path(comment.user_id) %></p>
-      <%= comment.user.name %>
-      <%= comment.comment %>
-      <% if comment.user == current_user %>
-        <%= link_to '削除', post_comment_path(post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+<div id="comments">
+  <% @post.comments.each do |comment| %>
+    <div id="comment-<%= comment.id %>">
+      <div class="comment">
+        <% if comment.user %>
+          <p><%= link_to image_tag(comment.user.get_profile_image(100, 100)), user_path(comment.user_id) %></p>
+          <%= comment.user.name %>
+          <%= comment.comment %>
+          <% if comment.user == current_user %>
+            <%= link_to '削除', post_comment_path(comment.post, comment), method: :delete, remote: true, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -6,16 +6,25 @@ class Public::CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params) #build 関連オブジェクトを自動的に作成し、関連性を構築するための外部キーを設定する
     @comment.user = current_user
     if @comment.save
-      redirect_to post_path(@post), notice: 'コメントが追加されました。'
+      respond_to do |format|
+        format.html { redirect_to post_path(@post), notice: 'コメントが追加されました。' }
+        format.js
+      end
     else
-      render 'public/posts/show'
+      respond_to do |format|
+        format.html { render 'public/posts/show' }
+        format.js { render 'error' }
+      end
     end
   end
   
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to post_path(@comment.post), notice: 'コメントが削除されました。'
+    respond_to do |format|
+      format.html { redirect_to post_path(@comment.post), notice: 'コメントが削除されました。' }
+      format.js
+    end
   end
   
   private
