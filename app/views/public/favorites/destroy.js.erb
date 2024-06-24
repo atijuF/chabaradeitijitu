@@ -1,2 +1,2 @@
-$('#post-<%= @post.id %> .favorite-link').replaceWith('<%= j(link_to "♡ いいね", post_favorites_path(@post), method: :post, remote: true, class: "favorite-link") %>');
+$('#post-<%= @post.id %> .favorite-link').replaceWith('<%= j(link_to "♡", post_favorites_path(@post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link') %>');
 <!-- 非同期通信 -->

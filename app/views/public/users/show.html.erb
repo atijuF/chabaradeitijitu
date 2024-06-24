@@ -4,39 +4,57 @@
       <%= render 'public/users/sidebar', user: @user %>
       <%= render 'public/posts/sidebar', post: @new_post %>
     </div>
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-9">
       <%= render 'public/posts/list', posts: @posts %>
-    </div>
-    <div>いいねした投稿一覧</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">ユーザー</th>
-          <th scope="col">タイトル</th>
-          <th scope="col">本文</th>
-          <th scope="col">投稿画像</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% if @favorite_posts.any? %>
-        <% @favorite_posts.each do |post| %>
+      
+      <div class="mt-5">いいね一覧</div>
+      
+      <table class="table">
+        <thead>
           <tr>
-            <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), user_path(post.user_id) %></td>
-            <td><%= link_to post.title, post_path(post.id) %></td>
-            <td><%= post.body %></td>
-            <td><%= image_tag(post.get_image, size: "100x100") %></td>
-            <td colspan="6">
-              <% if post.favorited_by?(current_user) %>
-                <%= button_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete %>
-              <% else %>
-                <%= button_to '♡ いいね', post_favorites_path(post), method: :post %>
+            <th scope="col">ユーザー</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">本文</th>
+            <th scope="col">投稿画像</th>
+            <th scope="col">タグ</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @favorite_posts.any? %>
+            <% @favorite_posts.each do |post| %>
+              <tr>
+                <td><%= link_to image_tag(post.user.get_profile_image(100, 100), class: "rounded-circle mb-3"), user_path(post.user_id) %></td>
+                <td><%= link_to post.title, post_path(post.id) %></td>
+                <td><%= truncate(post.body, length: 20) %></td>
+                <td><%= image_tag(post.get_image, size: "100x100") %></td>
+                <td>
+                  <p>
+                    <% post.tags.each do |tag| %>
+                      <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
+                    <% end %>
+                  </p>
+                </td>
+                <td>
+              <% if user_signed_in? %>
+                <% if post.favorited_by?(current_user) %>
+                  <%= link_to '♥', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
+                <% else %>
+                  <%= link_to '♡', post_favorites_path(post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
+                <% end %>
               <% end %>
             </td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @favorite_posts, param_name: 'favorite_posts_page' %>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5">いいねした投稿はありません。</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <%= paginate @favorite_posts, param_name: 'favorite_posts_page' %>
+    </div>
   </div>
 </div>

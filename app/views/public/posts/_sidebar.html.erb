@@ -1,44 +1,52 @@
-<% if user_signed_in? %>
-  <h2>新規投稿</h2>
-  <% if @new_post.errors.any? %>
-    <div class="alert alert-danger">
-      <%= @new_post.errors.count %> errors prohibited this post from being saved:
-      <ul>
-        <% @new_post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-12">
+      <% if user_signed_in? %>
+        <h2 class="mb-4">新規投稿</h2>
+
+        <% if @new_post.errors.any? %>
+          <div class="alert alert-danger">
+            <%= pluralize(@new_post.errors.count, "error") %> prohibited this post from being saved:
+            <ul>
+              <% @new_post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+        
+        <%= form_with model: @new_post, local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :post_image, "投稿画像" %>
+            <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %>
+          </div>
+        
+          <div class="form-group">
+            <%= f.label :title, "タイトル" %>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :tag_list, "タグ (カンマ区切り)" %>
+            <%= f.text_field :tag_list, class: "form-control", placeholder: "カンマ区切りで複数入力" %>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :body, "本文" %>
+            <%= f.text_area :body, class: "form-control", rows: 5 %>
+          </div>
+        
+          <div class="form-group">
+            <%= f.submit '投稿', class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+      
+      <% else %>
+        <p class="text-center">
+          投稿するにはログインが必要です。<br>
+          <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-primary mt-3" %>
+        </p>
+      <% end %>
     </div>
-  <% end %>
-  
-  <%= form_with model: @new_post, local: true do |f| %>
-    <div class="form-group">
-      <%= f.label :post_image, "投稿画像" %>
-      <%= f.file_field :post_image, accept: "image/*" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :title, "タイトル" %>
-      <%= f.text_field :title, class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :tag_list, "タグ (カンマ区切り)" %>
-      <%= f.text_field :tag_list, class: "form-control", placeholder: "カンマ区切りで複数入力" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :body, "本文" %>
-      <%= f.text_area :body, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.submit '投稿', class: "btn btn-primary" %>
-    </div>
-  <% end %>
-<% else %>
-  <p>
-    投稿するにはログインが必要です。<br>
-    <%= link_to 'ログイン', new_user_session_path %>
-  </p>
-<% end %>
+  </div>
+</div>

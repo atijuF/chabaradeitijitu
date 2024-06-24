@@ -11,13 +11,13 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   
-  scope :recent_posts, -> { order(created_at: :desc).limit(5) }
+  scope :recent_posts, -> { order(created_at: :desc).limit(6) }
   scope :most_liked_posts, -> { 
     select('posts.*, COUNT(favorites.id) AS likes_count')
     .left_joins(:favorites)
     .group('posts.id')
     .order('likes_count DESC')
-    .limit(5)
+    .limit(6)
   }
   
   def get_image

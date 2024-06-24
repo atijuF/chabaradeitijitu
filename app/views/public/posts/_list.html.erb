@@ -1,42 +1,54 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">投稿画像</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% posts.each do |post| %>
-      <tr id="post-<%= post.id %>">
-        <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), user_path(post.user_id) %></td>
-        <td><%= link_to post.title, post_path(post.id) %></td>
-        <td><%= post.body %></td>
-        <td><%= image_tag(post.get_image, size: "100x100") %></td>
-        <td colspan="4">
-          <p>
-            <% post.tags.each do |tag| %>
-              <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
-            <% end %>
-          </p>
-          <% if post.favorited_by?(current_user) %>
-            <%= link_to '♥ いいね', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete, remote: true, class: 'favorite-link' %>
-          <% else %>
-            <%= link_to '♡ いいね', post_favorites_path(post), method: :post, remote: true, class: 'favorite-link' %>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ユーザー</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">本文</th>
+            <th scope="col">投稿画像</th>
+            <th scope="col">タグ</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% posts.each do |post| %>
+            <tr id="post-<%= post.id %>">
+              <td><%= link_to image_tag(post.user.get_profile_image(100, 100), class: "rounded-circle mb-3"), user_path(post.user_id) %></td>
+              <td><%= link_to post.title, post_path(post.id) %></td>
+              <td><%= truncate(post.body, length: 20) %></td>
+              <td><%= image_tag(post.get_image, size: "100x100") %></td>
+              <td>
+                <p>
+                  <% post.tags.each do |tag| %>
+                    <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
+                  <% end %>
+                </p>
+              </td>
+              <td>
+              <% if user_signed_in? %>
+                <% if post.favorited_by?(current_user) %>
+                  <%= link_to '♥', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
+                <% else %>
+                  <%= link_to '♡', post_favorites_path(post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
+                <% end %>
+              <% end %>
+            </td>
+            </tr>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
 
-    <% if @inappropriate_post_message.present? %>
-      <tr>
-        <td colspan="4">
-          <p class="text-danger"><%= @inappropriate_post_message %></p>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <% if @inappropriate_post_message.present? %>
+            <tr>
+              <td colspan="6">
+                <p class="text-danger"><%= @inappropriate_post_message %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-<%= paginate posts %>
+      <%= paginate posts %>
+    </div>
+  </div>
+</div>
