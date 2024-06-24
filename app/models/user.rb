@@ -13,7 +13,7 @@ class User < ApplicationRecord
   #一覧画面で使用
   has_many :followings, through: :relationships, source: :follow
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  #いいね一覧表示のためs
+  #いいね一覧表示のため
   has_many :favorite_posts, through: :favorites, source: :post
   
   validates :name, presence: true
