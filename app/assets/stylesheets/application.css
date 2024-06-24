@@ -14,3 +14,17 @@
  *= require_self
  */
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Roboto+Slab|Merriweather&display=swap');
+
+/* フォントの適用 */
+body {
+  font-family: 'Noto Serif JP', serif; /* サイト全体に適用する例 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', serif; /* 見出しに適用する例 */
+}
+
+.card-title, .card-text {
+  font-family: 'Merriweather', serif; /* カード内のテキストに適用する例 */
+}

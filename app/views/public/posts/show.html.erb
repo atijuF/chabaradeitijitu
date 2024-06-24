@@ -4,54 +4,50 @@
       <%= render 'public/users/sidebar', user: @user %>
       <%= render 'public/posts/sidebar', post: @new_post %>
     </div>
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-9 mt-3">
       <h2>投稿詳細</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">ユーザー</th>
-            <th scope="col">タイトル</th>
-            <th scope="col">本文</th>
-            <th scope="col">投稿画像</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td><%= link_to image_tag(@user.get_profile_image(100, 100)), user_path(@user.id) %></td>
-              <td><%= @post.title %></td>
-              <td><%= @post.body %></td>
-              <td><%= image_tag(@post.get_image, size: "100x100") %></td>
-              
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-2">
+              <%= link_to image_tag(@user.get_profile_image(100, 100), class: "rounded-circle mb-3"), user_path(@user.id) %>
+            </div>
+            <div class="col-md-5">
+              <h4><%= @post.title %></h4>
+              <p><%= @post.body %></p>
+              <p>
+                <strong>タグ: </strong>
+                <% @post.tags.each do |tag| %>
+                  <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
+                <% end %>
+                <span id="favorite-button">
+                  <% if user_signed_in? %>
+                    <% if @post.favorited_by?(current_user) %>
+                      <%= link_to '♥', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link ms-2' %>
+                    <% else %>
+                      <%= link_to '♡', post_favorites_path(@post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link ms-2' %>
+                    <% end %>
+                  <% end %>
+                </span>
+              </p>
+            </div>
+            <div class="col-md-2">
+              <%= image_tag(@post.get_image, size: "100x100") %>
+            </div>
+            <div class="col-md-3 d-flex flex-column align-items-start">
               <% if current_user == @post.user %>
-              <td>
-                <%= link_to "Edit", edit_post_path(@post.id), class: 'btn btn-sm btn-success' %></td>
-              <td>
-                <%= link_to "Destroy", post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %>
-              </td>
-              <% end %>
-            </tr>
-            <tr>
-              <td colspan="6">
-                <p>
-                  <strong>タグ</strong>
-                  <% @post.tags.each do |tag| %>
-                    <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
-                  <% end %>
-                </p>
-                <div id="favorite-button">
-                  <% if @post.favorited_by?(current_user) %>
-                    <%= link_to '♥ いいね', post_favorite_path(@post, current_user.favorites.find_by(post: @post)), method: :delete, remote: true, class: 'favorite-link' %>
-                  <% else %>
-                    <%= link_to '♡ いいね', post_favorites_path(@post), method: :post, remote: true, class: 'favorite-link' %>
-                  <% end %>
+                <div class="d-flex">
+                  <%= link_to "Edit", edit_post_path(@post.id), class: 'btn btn-sm btn-success me-2' %>
+                  <%= link_to "Destroy", post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %>
                 </div>
-              <%= render 'public/comments/comment', post: @post %>
-              </td>
-            </tr>
-        </tbody>
-      </table>
+              <% end %>
+            </div>
+          </div>
+          <div class="mt-5">
+            <%= render 'public/comments/comment', post: @post %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

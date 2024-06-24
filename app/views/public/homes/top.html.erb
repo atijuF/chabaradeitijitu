@@ -1,24 +1,25 @@
-<h2>
-  ようこそ、茶腹で一日へ！
-</h2>
-<h4>
-  ここでは、紅茶のある豊かな時間を共有し、楽しむことができます。<br>
-  自分で淹れた紅茶、素敵な茶葉との出会い、カフェでの特別なティータイムなど、<br>
-  紅茶に関するすべての体験を仲間と共に分かち合いましょう!<br>
-</h4>
-
-<!-- この下に画像のある新着投稿を表示するところを作る-->
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-12">
-      <h4>新着投稿</h4>
+      <h2 class="display-4 text-center mb-4" style="font-family: 'Noto Serif JP', serif; color: #333;">ようこそ、茶腹で一日へ！</h2>
+      <h4 class="text-center" style="font-family: 'Roboto Slab', serif; color: #666;">
+        ここでは、紅茶のある豊かな時間を共有し、楽しむことができます。<br>
+        自分で淹れた紅茶、素敵な茶葉との出会い、カフェでの特別なティータイムなど、<br>
+        紅茶に関するすべての体験を仲間と共に分かち合いましょう!
+      </h4>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h4 class="mb-3" style="font-family: 'Merriweather', serif; color: #333;">新着投稿</h4>
       <div class="row">
         <% @recent_posts.each do |post| %>
           <div class="col-md-2 col-6 mb-3">
             <div class="card">
               <%= image_tag(post.get_image, class: "card-img-top", alt: "Post Image", style: "object-fit: cover; height: 200px;") %>
               <div class="card-body">
-                <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
+                <h5 class="card-title"><%= link_to post.title, post_path(post), class: "text-dark" %></h5>
                 <p class="card-text"><%= post.created_at.strftime('%Y-%m-%d') %></p>
               </div>
             </div>
@@ -30,14 +31,14 @@
 
   <div class="row mt-4">
     <div class="col-md-12">
-      <h4>いいねが多い投稿</h4>
+      <h4 class="mb-3" style="font-family: 'Merriweather', serif; color: #333;">いいねが多い投稿</h4>
       <div class="row">
         <% @popular_posts.each do |post| %>
           <div class="col-md-2 col-6 mb-3">
             <div class="card">
               <%= image_tag(post.get_image, class: "card-img-top", alt: "Post Image", style: "object-fit: cover; height: 200px;") %>
               <div class="card-body">
-                <h5 class="card-title"><%= link_to post.title, post_path(post) %></h5>
+                <h5 class="card-title"><%= link_to post.title, post_path(post), class: "text-dark" %></h5>
                 <p class="card-text">いいね数: <%= post.likes_count %></p>
               </div>
             </div>
@@ -47,4 +48,3 @@
     </div>
   </div>
 </div>
-
