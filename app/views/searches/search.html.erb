@@ -1,23 +1,27 @@
 <div class="container">
   <h2 class="mt-3 ml-3">検索結果</h2>
 
-<% if @range == "User" %>
-  <h2>ユーザー検索結果</h2>
-  <% @users.each do |user| %>
+  <% if @range == "User" %>
+    <h2>ユーザー検索結果</h2>
+    <% @users.each do |user| %>
+      <div>
+        <% if admin_signed_in? %>
+          <%= link_to image_tag(user.get_profile_image(100, 100)), admin_user_path(user) %>
+          <%= link_to user.name, admin_user_path(user) %>
+        <% else %>
+          <%= link_to image_tag(user.get_profile_image(100, 100)), user_path(user) %>
+          <%= link_to user.name, user_path(user) %>
+        <% end %>
+      </div>
+    <% end %>
+  <% elsif @range == "Post" %>
+    <h2>投稿検索結果</h2>
     <div>
-      <%= link_to image_tag(user.get_profile_image(100, 100)), user_path(user) %>
-      <%= link_to user.name, user_path(user) %>
+      <% if admin_signed_in? %>
+        <%= render 'admin/posts/list', posts: @posts %>
+      <% else %>
+        <%= render 'public/posts/list', posts: @posts %>
+      <% end %>
     </div>
   <% end %>
-<% elsif @range == "Post" %>
-  <h2>投稿検索結果</h2>
-  <div>
-    <%= render 'public/posts/list', posts: @posts %>
-  </div>
-<!-- < % elsif @range == "Tag" %>
-  <h2>タグ検索結果</h2>
-  <div>
-    < %= render 'public/posts/list', posts: @posts %>
-  </div> -->
-<% end %>
 </div>

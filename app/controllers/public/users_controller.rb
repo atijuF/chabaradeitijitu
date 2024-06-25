@@ -1,9 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
-  
-  def mypage
-  end
 
   def edit
     @user = User.find(params[:id])
@@ -15,7 +12,11 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts.where(status: 0).page(params[:page])
     @new_post = Post.new
     @favorite_posts = @user.favorite_posts
-    @favorite_posts = current_user.favorite_posts.page(params[:favorite_posts_page]).per(10)
+    if user_signed_in?
+      @favorite_posts = current_user.favorite_posts.page(params[:favorite_posts_page]).per(10)
+    else
+      @favorite_posts = @user.favorite_posts.page(params[:favorite_posts_page]).per(10)
+    end
     # ステータスが1の投稿の確認とメッセージ表示
     @inappropriate_post_message = "この投稿は不適切なため管理者によって削除されました。" if @user.posts.exists?(status: 1)
   end

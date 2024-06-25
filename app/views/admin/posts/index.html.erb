@@ -1,40 +1,5 @@
 <div class="container">
   <div class="row">
-    <h2 class="px-4 my-4", style="background-color: #FFDBC9;">投稿一覧</h2>
+    <h2 class="px-4 m-3", style="background-color: #FFDBC9;">投稿一覧</h2>
   </div>
-    <div class="row">
-      <table class="table">
-        <thead class="px-4 my-4", style="background-color: #FFDBC9;">
-          <tr>
-            <th scope="col">ユーザー</th>
-            <th scope="col">タイトル</th>
-            <th scope="col">本文</th>
-            <th scope="col">投稿画像</th>
-            <th scope="col">ステータス</th>
-            <th scope="col">タグ</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr>
-              <td><%= link_to image_tag(post.user.get_profile_image(100, 100)), admin_user_path(post.user_id) %></td>
-              <td><%= link_to post.title, admin_post_path(post.id) %></td>
-              <td><%= post.body %></td>
-              <td><%= image_tag(post.get_image, size: "100x100") %></td>
-              <td>
-              <% if post.status == "active" %>
-                <strong class="text-success">有効</strong>
-              <% else %>
-                <strong class="text-muted">無効</strong>
-              <% end %>
-            </td>
-            <td><%= post.tag_list %></td>
-            <td><%= link_to "Edit", edit_admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <%= paginate @posts %>
-  </div>
-</div>
+  <%= render 'admin/posts/list', posts: @posts %>
