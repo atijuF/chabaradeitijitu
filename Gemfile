@@ -59,6 +59,7 @@ gem 'kaminari','~> 1.2.1'
 gem 'bootstrap', '~> 5.0.2'
 gem 'jquery-rails'
 gem "enum_help"
+gem 'listen', '~> 3.3'
 
 gem 'dotenv-rails'
 group :production do
@@ -68,3 +69,4 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
