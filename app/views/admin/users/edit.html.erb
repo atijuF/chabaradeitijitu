@@ -51,10 +51,10 @@
           <%= f.label :is_active, '会員ステータス' %>
         </div>
         <div class="col-3">
-        <%= f.radio_button :is_active, true, checked: @user.is_active == true %>
-        <%= f.label :is_active, '有効' %>
-        <%= f.radio_button :is_active, false, checked: @user.is_active == false %>
-        <%= f.label :is_active, '無効' %>
+        <%= f.radio_button :is_active, true%>
+        <%= f.label :is_active, '有効',value: true %>
+        <%= f.radio_button :is_active, false %>
+        <%= f.label :is_active, '無効', value: false %>
         </div>
       </div>
     	

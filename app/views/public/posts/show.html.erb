@@ -30,6 +30,9 @@
                   <% end %>
                 </span>
               </p>
+              <p>
+                <strong>投稿日: </strong><%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+              </p>
             </div>
             <div class="col-md-2">
               <%= image_tag(@post.get_image, size: "100x100") %>

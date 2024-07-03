@@ -10,7 +10,9 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if params[:post][:tag_list].present?
-      @post.tag_list = params[:post][:tag_list]
+      # タグリストの重複を取り除く
+      tags = params[:post][:tag_list].split(',').map(&:strip).uniq
+      @post.tag_list = tags.join(',')
     end
     if @post.save
       flash[:notice] = "投稿に成功しました！"
