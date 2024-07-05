@@ -1,0 +1,24 @@
+ja:
+  hello: "こんにちは"
+  activerecord:
+    models:
+      user: "ユーザー"
+      post: "投稿"
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+      post:
+        title: "タイトル"
+        body: "本文"
+  helpers:
+    submit:
+      create: "%{model}を作成"
+      update: "%{model}を更新"
+  views:
+    posts:
+      index:
+        title: "投稿一覧"
+      show:
+        title: "投稿詳細"
+        created_at: "作成日時"
