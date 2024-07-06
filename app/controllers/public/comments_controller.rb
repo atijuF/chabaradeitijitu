@@ -1,35 +1,42 @@
 class Public::CommentsController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :set_post, only: :create
+  before_action :set_comment, only: :destroy
+
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params) #build 関連オブジェクトを自動的に作成し、関連性を構築するための外部キーを設定する
+    @comment = @post.comments.build(comment_params)
     @comment.user = current_user
-    if @comment.save
-      respond_to do |format|
-        format.html { redirect_to post_path(@post), notice: 'コメントが追加されました。' }
-        format.js
-      end
-    else
-      respond_to do |format|
-        format.html { render 'public/posts/show' }
-        format.js { render 'error' }
-      end
-    end
+    handle_comment_response(@comment.save, 'コメントが追加されました。', 'public/posts/show', 'error')
   end
-  
+
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to post_path(@comment.post), notice: 'コメントが削除されました。' }
-      format.js
-    end
+    handle_comment_response(true, 'コメントが削除されました。', post_path(@comment.post), nil)
   end
-  
+
   private
-  
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
   def comment_params
     params.require(:comment).permit(:comment)
+  end
+
+  def handle_comment_response(success, success_message, failure_html_view, failure_js_view)
+    respond_to do |format|
+      if success
+        format.html { redirect_to post_path(@post), notice: success_message }
+        format.js
+      else
+        format.html { render failure_html_view }
+        format.js { render failure_js_view }
+      end
+    end
   end
 end

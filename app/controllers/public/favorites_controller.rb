@@ -1,34 +1,31 @@
 class Public::FavoritesController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :set_post
+
   def create
-    @post = Post.find(params[:post_id])
     favorite = @post.favorites.new(user: current_user)
-    if favorite.save
-      respond_to do |format|
-        format.html { redirect_to request.referer, notice: 'いいねしました。' }
-        format.js   # 非同期通信に対応
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to request.referer, alert: 'いいねに失敗しました。' }
-        format.js { render js: "alert('いいねに失敗しました。');" }
-      end
-    end
+    handle_favorite_response(favorite.save, 'いいねしました。', 'いいねに失敗しました。')
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
     favorite = @post.favorites.find_by(user: current_user)
-    if favorite.destroy
-      respond_to do |format|
-        format.html { redirect_to request.referer, notice: 'いいねを取り消しました。' }
+    handle_favorite_response(favorite.destroy, 'いいねを取り消しました。', 'いいねの取り消しに失敗しました。')
+  end
+
+  private
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
+  def handle_favorite_response(success, success_message, failure_message)
+    respond_to do |format|
+      if success
+        format.html { redirect_to request.referer, notice: success_message }
         format.js   # 非同期通信に対応
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to request.referer, alert: 'いいねの取り消しに失敗しました。' }
-        format.js { render js: "alert('いいねの取り消しに失敗しました。');" }
+      else
+        format.html { redirect_to request.referer, alert: failure_message }
+        format.js { render js: "alert('#{failure_message}');" }
       end
     end
   end
