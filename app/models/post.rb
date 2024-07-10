@@ -12,13 +12,22 @@ class Post < ApplicationRecord
   validates :body, presence: true
   
   scope :recent_posts, -> { order(created_at: :desc).limit(6) }
-  scope :most_liked_posts, -> { 
+  scope :most_liked_posts, -> {
     select('posts.*, COUNT(favorites.id) AS likes_count')
     .left_joins(:favorites)
     .group('posts.id')
     .order('likes_count DESC')
     .limit(6)
   }
+  scope :newest, -> { order(created_at: :desc) }
+  scope :oldest, -> { order(created_at: :asc) }
+  scope :most_liked, -> {
+    select('posts.*, COUNT(favorites.id) AS likes_count')
+    .left_joins(:favorites)
+    .group('posts.id')
+    .order('likes_count DESC')
+  }
+  scope :active, -> { where(status: :active) }
   
   def get_image
     unless post_image.attached?
@@ -63,3 +72,4 @@ class Post < ApplicationRecord
     end.compact
   end
 end
+
