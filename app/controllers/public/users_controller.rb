@@ -7,10 +7,9 @@ class Public::UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts.where(status: 0).page(params[:page])
+    @posts = sorted_user_posts.page(params[:page])
     @new_post = Post.new
     @favorite_posts = user_signed_in? ? current_user.favorite_posts.page(params[:favorite_posts_page]).per(10) : @user.favorite_posts.page(params[:favorite_posts_page]).per(10)
-    
     # ステータスが1の投稿の確認とメッセージ表示
     @inappropriate_post_message = "この投稿は不適切なため管理者によって削除されました。" if @user.posts.exists?(status: 1)
   end
@@ -47,5 +46,23 @@ class Public::UsersController < ApplicationController
 
   def is_matching_login_user
     redirect_to user_path(current_user.id) unless @user.id == current_user.id
+  end
+  
+  def sorted_user_posts
+    logger.debug "Sort parameter: #{params[:sort]}"
+    case params[:sort]
+    when 'newest'
+      @user.posts.active.order(created_at: :desc)
+    when 'oldest'
+      @user.posts.active.order(created_at: :asc)
+    when 'most_liked'
+      @user.posts.active.most_liked
+    else
+      @user.posts.active.order(created_at: :desc)
+    end
+  end
+
+  def permit_sort_params
+    params.permit(:sort, :page)
   end
 end
