@@ -3,17 +3,7 @@
     <div class="col-md-12">
       <div class="sort-options mb-3">
         <!-- ソート機能ユーザーページ、投稿ページ両方に対応したい -->
-        <% if %>
-          <%= form_tag(posts_path, method: "get", class: "form-inline") do %>
-            <%= select_tag :sort, options_for_select([['新しい順', 'newest'], ['古い順', 'oldest'], ['いいね順', 'most_liked']], params[:sort]), class: 'form-control mr-2' %>
-            <%= submit_tag '変更', class: 'btn btn-primary' %>
-          <% end %>
-        <% elsif @user %>
-          <%= form_tag(user_path(@user), method: "get", class: "form-inline") do %>
-            <%= select_tag :sort, options_for_select([['新しい順', 'newest'], ['古い順', 'oldest'], ['いいね順', 'most_liked']], params[:sort]), class: 'form-control mr-2' %>
-            <%= submit_tag '変更', class: 'btn btn-primary' %>
-          <% end %>
-        <% end %>
+        
       </div>
       <table class="table">
         <colgroup>
