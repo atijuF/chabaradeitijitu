@@ -62,6 +62,7 @@
                         <%= link_to '♡', post_favorites_path(post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
                       <% end %>
                     <% end %>
+                    <%= post.favorites.count %>
                   </td>
                 </tr>
               <% end %>
