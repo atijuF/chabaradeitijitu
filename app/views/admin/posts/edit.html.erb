@@ -1,49 +1,60 @@
 <div class="container">
   <div class="row">
-    <h2 class="px-4 my-4" style="background-color: #FFDBC9;">投稿編集</h2>
+    <div class="col">
+      <h2 class="px-4 my-4" style="background-color: #FFDBC9;">投稿編集</h2>
+    </div>
   </div>
-  <%= form_with model: @post, url: admin_post_path(@post), method: :patch do |f| %>
-    <div class="form-group">
-      <%= f.label :post_image, "現在の投稿画像" %><br>
-      <% if @post.post_image.attached? %>
-        <%= image_tag @post.post_image, size: "100x100", class: "current-image" %>
-      <% else %>
-        <p>画像がありません</p>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <%= form_with model: @post, url: admin_post_path(@post), method: :patch, local: true do |f| %>
+        <div class="form-group mb-3">
+          <%= f.label :post_image, "現在の投稿画像", class: "form-label" %><br>
+          <% if @post.post_image.attached? %>
+            <%= image_tag @post.post_image, size: "100x100", class: "current-image mb-3 img-thumbnail" %>
+          <% else %>
+            <p>画像がありません</p>
+          <% end %>
+          <%= f.label :post_image, "新しい投稿画像", class: "form-label" %>
+          <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :title, "タイトル", class: "form-label" %>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+        
+        <div class="form-group mb-3">
+          <%= f.label :body, "本文", class: "form-label" %>
+          <%= f.text_area :body, class: "form-control" %>
+        </div>
+        
+        <div class="form-group mb-3">
+          <%= f.label :tag_list, "タグ", class: "form-label" %>
+          <%= f.text_field :tag_list, value: @post.tags.map(&:name).join(", "), class: "form-control" %>
+        </div>
+        
+        <div class="form-group mb-3">
+          <%= f.label :status, "ステータス", class: "form-label" %><br>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :status, "active", class: "form-check-input" %>
+            <%= f.label :status_active, "有効", class: "form-check-label" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :status, "inactive", class: "form-check-input" %>
+            <%= f.label :status_inactive, "無効", class: "form-check-label" %>
+          </div>
+        </div>
+        
+        <div class="form-group mb-3">
+          <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-danger ms-2', "data-confirm" => "Are you sure?" %>
+        </div>
+        
+        <div class="form-group mb-3">
+          <%= link_to "Back", admin_post_path(@post) %>
+          <%= link_to "Top", admin_root_path(@post) %>
+        </div>
       <% end %>
-      <%= f.label :post_image, "新しい投稿画像" %>
-      <%= f.file_field :post_image, class: "form-control", accept: "image/*" %>
     </div>
-  
-    <div class="form-group">
-      <%= f.label :title, "タイトル" %>
-      <%= f.text_field :title, class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :body, "本文" %>
-      <%= f.text_area :body, class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :tag_list, "タグ" %>
-      <%= f.text_field :tag_list, value: @post.tags.map(&:name).join(", "), class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :status, "ステータス" %><br>
-      <%= f.radio_button :status, "active" %> 有効
-      <%= f.radio_button :status, "inactive" %> 無効
-    </div>
-    
-    
-    <div class="form-group">
-      <%= f.submit "変更を保存", class: "btn btn-success" %>
-    </div>
-    
-    <div class="form-group">
-      <%= link_to "Destroy", admin_post_path(@post.id), method: :delete, class: 'btn btn-sm btn-danger', "data-confirm" => "Are you sure?" %>
-    </div>
-    
-    <%= link_to "Back", admin_post_path(@post) %>
-  <% end %>
+  </div>
 </div>
