@@ -40,6 +40,18 @@
           <%= f.label :body, "本文", class: "form-label" %>
           <%= f.text_area :body, class: "form-control", rows: 5 %>
         </div>
+        
+        <div class="form-group mb-3">
+          <%= f.label :status, "ステータス", class: "form-label" %><br>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :status, "active", class: "form-check-input", id: "post_status_active" %>
+            <%= f.label :status_active, "公開", class: "form-check-label", for: "post_status_active" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :status, "inactive", class: "form-check-input", id: "post_status_inactive" %>
+            <%= f.label :status_inactive, "非公開", class: "form-check-label", for: "post_status_inactive" %>
+          </div>
+        </div>
       
         <div class="form-group mb-3">
           <%= f.submit '投稿', class: "btn btn-primary" %>

@@ -27,7 +27,7 @@ class Public::PostsController < ApplicationController
   end
 
   def show
-    redirect_to posts_path and return if @post.status != 'active'
+    redirect_to posts_path and return if @post.status != 'active' && @post.user != current_user
     @user = @post.user
     @new_post = Post.new
   end
