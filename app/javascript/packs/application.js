@@ -12,6 +12,7 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
+import "../sticky_sidebar";
 
 Rails.start()
 Turbolinks.start()
