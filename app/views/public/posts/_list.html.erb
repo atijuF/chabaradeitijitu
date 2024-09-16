@@ -1,20 +1,11 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <div class="sort-options mb-3">
-        <!-- ソート機能ユーザーページ、投稿ページ両方に対応したい -->
-        
-      </div>
-      <table class="table">
-        <colgroup>
-          <col style="width: 15%;">
-          <col style="width: 20%;">
-          <col style="width: 30%;">
-          <col style="width: 15%;">
-          <col style="width: 13%;">
-          <col style="width: 7%;">
-        </colgroup>
-        <thead class="px-4 my-4", style="background-color: #FFDBC9;">
+      <div class="sort-options mb-3"></div>
+
+      <!-- 大画面用テーブル -->
+      <table class="table table-striped table-bordered d-none d-md-table">
+        <thead class="px-4 my-4" style="background-color: #FFDBC9;">
           <tr>
             <th scope="col">ユーザー</th>
             <th scope="col">タイトル</th>
@@ -25,6 +16,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- データ表示部分 -->
           <% posts.each do |post| %>
             <tr id="post-<%= post.id %>">
               <td><%= link_to image_tag(post.user.get_profile_image(100, 100), class: "rounded-circle mb-3"), user_path(post.user_id) %></td>
@@ -32,36 +24,39 @@
               <td><%= truncate(post.body) %></td>
               <td><%= image_tag(post.get_image, size: "100x100") %></td>
               <td>
-                <p>
-                  <% post.tags.each do |tag| %>
-                    <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
-                  <% end %>
-                </p>
-              </td>
-              <td>
-              <% if user_signed_in? %>
-                <% if post.favorited_by?(current_user) %>
-                  <%= link_to '♥', post_favorite_path(post, current_user.favorites.find_by(post: post)), method: :delete, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
-                <% else %>
-                  <%= link_to '♡', post_favorites_path(post), method: :post, remote: true, class: 'btn btn-sm btn-outline-danger favorite-link' %>
+                <% post.tags.each do |tag| %>
+                  <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
                 <% end %>
-              <% end %>
-              <%= post.favorites.count %>
-            </td>
-            </tr>
-          <% end %>
-
-          <% if @inappropriate_post_message.present? %>
-            <tr>
-              <td colspan="6">
-                <p class="text-danger"><%= @inappropriate_post_message %></p>
               </td>
+              <td><%= post.favorites.count %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
+
+      <!-- 小画面用カード形式 -->
+      <div class="d-md-none">
+        <% posts.each do |post| %>
+          <div class="card mb-3">
+            <div class="card-header">
+              <%= link_to image_tag(post.user.get_profile_image(50, 50), class: "rounded-circle"), user_path(post.user_id) %>
+              <%= post.title %>
+            </div>
+            <div class="card-body">
+              <p><%= truncate(post.body) %></p>
+              <%= image_tag(post.get_image, size: "100x100") %>
+              <p>
+                <% post.tags.each do |tag| %>
+                  <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-white m-1" %>
+                <% end %>
+              </p>
+              <p><%= post.favorites.count %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
       <%= paginate posts %>
     </div>
   </div>
 </div>
-
