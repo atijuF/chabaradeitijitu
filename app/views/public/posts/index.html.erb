@@ -4,26 +4,25 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
-    height: 100vh;
-    overflow-y: auto;
-    /* background-color: #f8f9fa; */
+    width: 30%;       /* サイドバーの幅を500pxに変更 */
+    height: 100%;       /* サイドバーの高さ */
+    overflow-y: auto;   /* コンテンツが多い場合はスクロール */
     padding: 20px;
     z-index: 1000;
   }
 
   /* メインコンテンツの調整 */
   .content-area {
-    margin-left: 270px;
+    margin-left: 10%;  /* サイドバーの幅に合わせてマージンを520pxに変更 */
+    padding: 20px;       /* 内側の余白 */
   }
 
-  /* レスポンシブ対応 - 小さな画面の場合のレイアウト */
+  /* レスポンシブ対応 - 小さな画面でのレイアウト調整 */
   @media (max-width: 768px) {
     .sticky-sidebar {
       position: relative;
       width: 100%;
       height: auto;
-      z-index: auto;
     }
 
     .content-area {
@@ -33,15 +32,16 @@
   }
 </style>
 
-
 <div class="container">
   <div class="row">
-    <div class="col-md-3 sticky-sidebar">
+    <!-- サイドバー -->
+    <div class="sticky-sidebar">
       <%= render 'public/users/sidebar', user: @user %>
       <%= render 'public/posts/sidebar', post: @new_post %>
     </div>
-    
-    <div class="col-md-9">
+
+    <!-- メインコンテンツ -->
+    <div class="content-area">
       <h2 class="ml-3 mt-3">投稿一覧</h2>
       <%= form_tag(posts_path, method: "get", class: "form-inline") do %>
         <%= select_tag :sort, options_for_select([['新しい順', 'newest'], ['古い順', 'oldest'], ['いいね順', 'most_liked']], params[:sort]), class: 'form-control mr-2' %>
